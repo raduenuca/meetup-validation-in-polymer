@@ -1,0 +1,32 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="validation-app">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <h2>Hello [[prop1]]!</h2>
+    </template>
+
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class ValidationApp extends Polymer.Element {
+            static get is() { return 'validation-app'; }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'test2-app'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(ValidationApp.is, ValidationApp);
+    </script>
+</dom-module>

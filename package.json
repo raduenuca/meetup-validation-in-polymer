@@ -1,0 +1,19 @@
+{
+  "name": "meetup-validation-in-polymer",
+  "version": "0.0.1",
+  "description": "Code for Form validation in Polymer meetup",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raduenuca/meetup-validation-in-polymer.git"
+  },
+  "author": "Radu Enucă <raduenuca@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raduenuca/meetup-validation-in-polymer/issues"
+  },
+  "homepage": "https://github.com/raduenuca/meetup-validation-in-polymer#readme"
+}
