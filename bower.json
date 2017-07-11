@@ -26,6 +26,10 @@
     "paper-item": "PolymerElements/paper-item#^2.0.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0",
-    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0"
+    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
+    "paper-card": "PolymerElements/paper-card#^2.0.0",
+    "paper-fab": "PolymerElements/paper-fab#^2.0.0",
+    "paper-styles": "PolymerElements/paper-styles#^2.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0"
   }
 }

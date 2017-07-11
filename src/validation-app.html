@@ -1,13 +1,48 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
 <dom-module id="validation-app">
     <template>
         <style>
             :host {
-                display: block;
+                @apply --layout-fit;
+                @apply --layout-vertical;
+                @apply --layout-center-center;
+            }
+
+            paper-card {
+                --paper-card-header: {
+                    background-color: var(--paper-purple-800);
+                    vertical-align: middle;
+                    height: 75px;
+
+                    @apply --layout-vertical;
+                    @apply --layout-center-justified;
+                };
+
+                --paper-card-header-text: {
+                    font-size: var(--paper-font-headline);
+                };
+
+                --paper-card-header-color: var(--paper-purple-50);
+
+                --paper-card-content: {
+                    @apply --layout-flex;
+                };
             }
         </style>
-        <h2>Hello [[prop1]]!</h2>
+        <paper-card heading="Login">
+            <div class="card-content">Some content</div>
+            <div class="card-actions">
+                <paper-button>Some action</paper-button>
+            </div>
+        </paper-card>
     </template>
 
     <script>
@@ -16,7 +51,10 @@
          * @polymer
          */
         class ValidationApp extends Polymer.Element {
-            static get is() { return 'validation-app'; }
+            static get is() {
+                return 'validation-app';
+            }
+
             static get properties() {
                 return {
                     prop1: {
