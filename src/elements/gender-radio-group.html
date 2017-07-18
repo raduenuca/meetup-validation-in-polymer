@@ -1,0 +1,65 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+
+<dom-module id="gender-radio-group">
+    <template>
+        <style>
+            #group.invalid {
+                --paper-radio-button-label-color: var(--error-color);
+                --paper-radio-button-unchecked-color: var(--error-color);
+            }
+        </style>
+        <label id="genderLabel">Gender</label>
+        <paper-radio-group id="group"
+                           aria-labelledby="genderLabel" name="genders" required attr-for-selected="value"
+                           selected="{{value}}" class$="[[_computeRadioGroupClass(invalid)]]">
+            <paper-radio-button value="male">Male</paper-radio-button>
+            <paper-radio-button value="female">Female</paper-radio-button>
+            <paper-radio-button value="unknown">Hungry</paper-radio-button>
+        </paper-radio-group>
+    </template>
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class GenderRadioGroup extends Polymer.mixinBehaviors(
+            [Polymer.IronFormElementBehavior, Polymer.IronValidatableBehavior], Polymer.Element) {
+            static get is() {
+                return 'gender-radio-group';
+            }
+
+            static get properties() {
+                return {
+                    autoValidate: {
+                        type: Boolean,
+                        value: false
+                    }
+                };
+            }
+
+            static get observers() {
+                return [
+                    '_handleValueAndAutoValidate(value)'
+                ];
+            }
+
+            _getValidity() {
+                return this.required ? this.value !== null : true;
+            }
+
+            _computeRadioGroupClass(invalid) {
+                return invalid ? 'invalid' : '';
+            }
+
+            _handleValueAndAutoValidate(value){
+                this.autoValidate && value && this.validate();
+            }
+        }
+
+        window.customElements.define(GenderRadioGroup.is, GenderRadioGroup);
+    </script>
+</dom-module>
