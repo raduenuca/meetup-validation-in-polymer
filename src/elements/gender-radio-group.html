@@ -3,23 +3,57 @@
 <link rel="import" href="../../bower_components/iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input-error.html">
 
 <dom-module id="gender-radio-group">
     <template>
         <style>
             #group.invalid {
-                --paper-radio-button-label-color: var(--error-color);
+                /*--paper-radio-button-label-color: var(--error-color);*/
                 --paper-radio-button-unchecked-color: var(--error-color);
             }
+
+            label.invalid {
+                color: var(--error-color);
+            }
+
+            paper-input-error {
+                position: relative;
+            }
+
+            .gender {
+                margin-top: 20px;
+                padding: 8px 0;
+
+                @apply --layout-horizontal;
+                @apply --layout-end;
+
+                color: var(--secondary-text-color);
+                --paper-radio-button-checked-color: var(--paper-green-600);
+                --paper-radio-button-unchecked-ink-color: var(--paper-green-300);
+                --paper-radio-button-checked-ink-color: var(--paper-green-300);
+                --paper-radio-button-label-color: var(--secondary-text-color);
+                --paper-radio-button-unchecked-color: var(--secondary-text-color);
+                --paper-radio-group-item-padding: 0 5px;
+            }
         </style>
-        <label id="genderLabel">Gender</label>
-        <paper-radio-group id="group"
-                           aria-labelledby="genderLabel" name="genders" required attr-for-selected="value"
-                           selected="{{value}}" class$="[[_computeRadioGroupClass(invalid)]]">
-            <paper-radio-button value="male">Male</paper-radio-button>
-            <paper-radio-button value="female">Female</paper-radio-button>
-            <paper-radio-button value="unknown">Hungry</paper-radio-button>
-        </paper-radio-group>
+        <div class="gender">
+            <label id="genderLabel" class$="[[_computeRadioGroupClass(invalid)]]">
+                Gender
+            </label>
+            <paper-radio-group id="group"
+                               aria-labelledby="genderLabel" name="genders" required attr-for-selected="value"
+                               selected="{{value}}" class$="[[_computeRadioGroupClass(invalid)]]">
+                <paper-radio-button value="male"> Male</paper-radio-button>
+                <paper-radio-button value="female">Female</paper-radio-button>
+                <paper-radio-button value="unknown">Hungry</paper-radio-button>
+            </paper-radio-group>
+        </div>
+        <dom-if if="[[invalid]]" notify-dom-change on-dom-change="_updateErrorMessage">
+            <template>
+                <paper-input-error id="errorMessage">[[errorMessage]]</paper-input-error>
+            </template>
+        </dom-if>
     </template>
     <script>
         /**
@@ -37,6 +71,11 @@
                     autoValidate: {
                         type: Boolean,
                         value: false
+                    },
+
+                    errorMessage: {
+                        type: String,
+                        value: 'Pizza arrives at 19:30 !!!'
                     }
                 };
             }
@@ -48,15 +87,20 @@
             }
 
             _getValidity() {
-                return this.required ? this.value !== null : true;
+                return this.required ? !!this.value : true;
             }
 
             _computeRadioGroupClass(invalid) {
                 return invalid ? 'invalid' : '';
             }
 
-            _handleValueAndAutoValidate(value){
+            _handleValueAndAutoValidate(value) {
                 this.autoValidate && value && this.validate();
+            }
+
+            _updateErrorMessage() {
+                let errorMessageField = this.$$('#errorMessage');
+                errorMessageField && errorMessageField.update({invalid: this.invalid});
             }
         }
 

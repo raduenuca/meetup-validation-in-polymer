@@ -1,0 +1,49 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../bower_components/iron-validator-behavior/iron-validator-behavior.html">
+
+<script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class PatriotismValidator extends Polymer.mixinBehaviors([Polymer.IronValidatorBehavior], Polymer.Element) {
+        static get is() {
+            return 'patriotism-validator';
+        }
+
+        static get properties() {
+            return {
+                errorMessage: {
+                    type: String,
+                    notify: true
+                },
+
+                required: {
+                    type: Boolean
+                }
+            };
+        }
+
+        ready() {
+            super.ready();
+            new Polymer.IronMeta({type: 'validator', key: PatriotismValidator.is, value: this});
+        }
+
+        validate(value) {
+            if (!value) {
+                this.errorMessage = 'Please select a country';
+                return false;
+            }
+
+            if(value.toUpperCase() !== 'ROMANIA') {
+                this.errorMessage = 'Traitor !!!';
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    window.customElements.define(PatriotismValidator.is, PatriotismValidator);
+</script>
